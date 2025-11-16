@@ -14,7 +14,7 @@
   </div>
   <div class="mb-3">
     <label class="form-label">Language Name</label>
-    <input class="form-control" name="languageName" value="${language.languageName}" required />
+    <input class="form-control" name="language" value="${language.language}" required />
   </div>
   <button class="btn btn-primary" type="submit">Lưu</button>
   <a class="btn btn-secondary" href="${pageContext.request.contextPath}/languages">Back</a>

@@ -20,7 +20,7 @@
     <c:forEach var="lang" items="${languages}">
       <tr>
         <td><c:out value="${lang.languageID}"/></td>
-        <td><c:out value="${lang.languageName}"/></td>
+        <td><c:out value="${lang.language}"/></td>
         <td>
           <a class="btn btn-primary btn-sm" href="${pageContext.request.contextPath}/languages/edit?id=${lang.languageID}">Sửa</a>
           <a class="btn btn-danger btn-sm" href="${pageContext.request.contextPath}/languages/delete?id=${lang.languageID}" onclick="return confirm('Delete?')">Xóa</a>

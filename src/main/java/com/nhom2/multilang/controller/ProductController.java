@@ -1,5 +1,9 @@
 package com.nhom2.multilang.controller;
 
+import java.util.List;
+
+import javax.servlet.http.HttpServletRequest;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
@@ -8,10 +12,13 @@ import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestMapping;
 import org.springframework.web.bind.annotation.RequestParam;
+import org.springframework.web.bind.annotation.ResponseBody;
 
+import com.nhom2.multilang.dao.ProductDAO;
 import com.nhom2.multilang.dto.CreateProductDTO;
 import com.nhom2.multilang.model.*;
 import com.nhom2.multilang.service.*;
+import com.nhom2.multilang.service.impl.FileService;
 
 @Controller
 @RequestMapping("/products")
@@ -25,6 +32,10 @@ public class ProductController {
 	private ProductCategoryTranslationService productCategoryTranslationService;
 	@Autowired
 	private LanguageService languageService;
+	@Autowired
+	private FileService fileService;
+	@Autowired
+	private ProductDAO productDAO;
 
 	@GetMapping
 	public String list(@RequestParam("lang") String lang, Model model) {
@@ -103,5 +114,38 @@ public class ProductController {
 		redirectAttributes.addFlashAttribute("success", "Xóa nghĩa thành công!");
 		return "redirect:/products/meanings/list?id=" + productId;
 	}
+	
+	@RequestMapping("/export-txt")
+    @ResponseBody
+	public String exportTxt(HttpServletRequest request) throws Exception {
+        List<Product> list = productDAO.getAllProducts();
+
+        String fileName = "products.txt";
+        fileService.writeTxt(list, fileName);
+
+        return "Xuất TXT thành công!";
+    }
+	
+	@RequestMapping("/export-json")
+    @ResponseBody
+    public String exportJson(HttpServletRequest request) throws Exception {
+        List<Product> list = productDAO.getAllProducts();
+
+        String fileName = "products.json";
+        fileService.writeJson(list, fileName);
+
+        return "Xuất JSON thành công!";
+    }
+	
+	@RequestMapping("/export-xml")
+    @ResponseBody
+    public String exportXml(HttpServletRequest request) throws Exception {
+        List<Product> list = productDAO.getAllProducts();
+
+        String fileName = "products.xml";
+        fileService.writeXml(list, fileName);
+
+        return "Xuất XML thành công!";
+    }
 
 }

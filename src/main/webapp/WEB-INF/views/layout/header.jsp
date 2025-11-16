@@ -48,7 +48,7 @@
             <c:when test="${not empty currentLang}">
               <c:forEach var="lang" items="${availableLanguages}">
                 <c:if test="${lang.languageID eq currentLang}">
-                  <c:out value="${lang.languageName}"/>
+                  <c:out value="${lang.language}"/>
                 </c:if>
               </c:forEach>
             </c:when>
@@ -61,7 +61,7 @@
               <a class="dropdown-item ${lang.languageID eq currentLang ? 'active' : ''}" 
                  href="javascript:void(0);" 
                  onclick="changeLanguage('${lang.languageID}')">
-                <c:out value="${lang.languageName}"/> (${lang.languageID})
+                <c:out value="${lang.language}"/> (${lang.languageID})
               </a>
             </li>
           </c:forEach>
